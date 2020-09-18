@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import sys
-import numpy as np
+try:
+    import statistics
+except ImportError:
+  import numpy as np    
 inp=open(sys.argv[1],'r')
 ref=open(sys.argv[2],'r')
 atom=sys.argv[3]
@@ -14,7 +17,10 @@ for line in ref:
 			lstref.append(float(sp[4]))
 print('isotropic values of reference')
 print(lstref)
-isoref=np.mean(np.asarray(lstref))
+if "statistics" in sys.modules:
+	isoref=statistics.mean(lstref)
+else:
+	isoref=np.mean(np.asarray(lstref))
 print('mean isotropic value of reference is ' + str(isoref)+'\n')
 print('file')
 for line in inp:
